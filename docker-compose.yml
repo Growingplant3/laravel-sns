@@ -39,6 +39,20 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    hostname: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4:5.0
+    ports:
+      - 8000:80
+    volumes:
+      - ${DATA_PATH_HOST}/pgadmin_volume:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root
+      PGADMIN_DEFAULT_PASSWORD: root
+    hostname: pgadmin4
+    depends_on:
+      - postgres
 
   mailhog:
     image: mailhog/mailhog
